@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Movie, ShowTime, Studio
-# Register your models here.
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
@@ -14,7 +13,8 @@ class MovieAdmin(admin.ModelAdmin):
                     'movie_cast',
                     'movie_synopsis'
                     ]
-                
+
+
 @admin.register(Studio)
 class StudioAdmin(admin.ModelAdmin):
     list_display = [

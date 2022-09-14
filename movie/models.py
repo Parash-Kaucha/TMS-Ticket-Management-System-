@@ -1,5 +1,4 @@
-import string
-from webbrowser import get
+from datetime import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -22,11 +21,15 @@ class Movie(models.Model):
     def __str__(self):
         return self.movie_name
 
+
 class Studio(models.Model):
     studio_id = models.BigAutoField(primary_key=True)
     studio_name = models.CharField(max_length=30)
     studio_capacity = models.IntegerField(blank=False)
     available_seats = models.IntegerField(blank=False)
+
+    def __str__(self):
+        return self.studio_name
 
 
 class ShowTime(models.Model):
@@ -34,3 +37,10 @@ class ShowTime(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='movie')
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+
+
+class TicketBooking(models.Model):
+    Customer = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    ShowTime = models.ForeignKey(ShowTime, on_delete=models.CASCADE, related_name='showtime')
+    seats = models.IntegerField(default=1)
+    creation_time = models.DateTimeField(default=datetime.now())
